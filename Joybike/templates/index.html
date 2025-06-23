@@ -1,0 +1,505 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JoyBike - Latest Bikes</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/stylesheet.css'%}" />
+    <!-- Font Awesome for icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script>
+      // Auto-focus email field when modal opens
+      document.addEventListener("DOMContentLoaded", function () {
+        var loginModal = document.getElementById("loginModal");
+        if (loginModal) {
+          loginModal.addEventListener("shown.bs.modal", function () {
+            document.querySelector('#loginModal input[name="login"]').focus();
+          });
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg bg-dark text-white navbar-light fixed-top"
+    >
+      <div class="container">
+        <a class="navbar-brand text-white" href="#">JoyBike</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">New Bikes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Upcoming Bikes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Electric Bikes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">Dealers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#">News</a>
+            </li>
+          </ul>
+          {% comment %}
+          <div class="d-flex">
+            <button id="loginBtn" class="btn btn-outline-light me-2">
+              Login
+            </button>
+            <button class="btn btn-primary">Register</button>
+          </div>
+          {% endcomment %}
+          <!-- Replace the current d-flex div in navbar.html -->
+          <div class="d-flex align-items-center">
+            {% if user.is_authenticated %}
+            <!-- Show when user is logged in -->
+            <div class="dropdown">
+              <button
+                class="btn btn-outline-light dropdown-toggle"
+                type="button"
+                id="userDropdown"
+                data-bs-toggle="dropdown"
+              >
+                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                <img
+                  src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
+                  width="30"
+                  height="30"
+                  class="rounded-circle me-2"
+                />
+                {% endif %} {{ user.email|truncatechars:15 }}
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="{% url 'profile' %}"
+                    ><i class="fas fa-user me-2"></i>My Profile</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <form method="post" action="{% url 'account_logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item">
+                      <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            {% else %}
+            <!-- Show when user is not logged in -->
+            <button
+              class="btn btn-outline-light me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#loginModal"
+            >
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </button>
+            <a href="{% url 'account_signup' %}" class="btn btn-primary">
+              <i class="fas fa-user-plus me-2"></i>Register
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-lg-6">
+            <h1 class="display-4 text-white fw-bold">
+              Explore the Latest Bikes
+            </h1>
+            <p class="lead text-white">
+              Find your perfect ride from our extensive collection of new and
+              upcoming bikes.
+            </p>
+            <button class="btn btn-primary btn-lg">View All Bikes</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-5">
+      <div class="container">
+        <!-- Search Section -->
+        <section class="search-section mb-5 p-4 bg-light rounded">
+          <h2 class="mb-4">Find Your Dream Bike</h2>
+          <form class="row g-3">
+            <div class="col-md-4">
+              <select class="form-select">
+                <option selected>Select Brand</option>
+                <option>Joye</option>
+                <option>Honda</option>
+                <option>Bajaj</option>
+                <option>Yamaha</option>
+                <option>Royal Enfield</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <select class="form-select">
+                <option selected>Select Budget</option>
+                <option>Under ₹50,000</option>
+                <option>₹50,000 - ₹1 Lakh</option>
+                <option>₹1 Lakh - ₹1.5 Lakh</option>
+                <option>Above ₹1.5 Lakh</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <button type="submit" class="btn btn-primary w-100">
+                Search Bikes
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- Latest Bikes Section -->
+        <section class="latest-bikes mb-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Latest Joye Bikes</h2>
+            <a href="#" class="btn btn-outline-primary">View All</a>
+          </div>
+
+          <div class="row">
+            <!-- Bike Card 1 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <div
+                  class="badge bg-danger position-absolute"
+                  style="top: 10px; right: 10px"
+                >
+                  New Launch
+                </div>
+                <img
+                  src="{% static '/img/Honda CBR650R.jpg'%}"
+                  class="card-img-top"
+                  alt="Joye Model X"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Honda CBR650R</h5>
+                  <p class="text-muted">Sports Bike</p>
+                  <div class="features mb-3">
+                    <span class="badge bg-light text-dark me-1">649cc</span>
+                    <span class="badge bg-light text-dark me-1">25 Kmpl</span>
+                    <span class="badge bg-light text-dark">95.17 PS</span>
+                  </div>
+                  <h6 class="mb-3">₹10.40 Lakh*</h6>
+                  <a href="#" class="btn btn-outline-primary w-100"
+                    >View Details</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Bike Card 2 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <img
+                  src="{%static '/img/scrambler-400-xc6821ea0cd4416.avif'%}"
+                  class="card-img-top"
+                  alt="Joye Urban Rider"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Triumph Scrambler 400 XC</h5>
+                  <p class="text-muted">Commuter Bike</p>
+                  <div class="features mb-3">
+                    <span class="badge bg-light text-dark me-1">398cc</span>
+                    <span class="badge bg-light text-dark me-1">27 kmpl</span>
+                    <span class="badge bg-light text-dark">40 PS</span>
+                  </div>
+                  <h6 class="mb-3">₹2.94 Lakh*</h6>
+                  <a href="#" class="btn btn-outline-primary w-100"
+                    >View Details</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Bike Card 3 -->
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <div
+                  class="badge bg-success position-absolute"
+                  style="top: 10px; right: 10px"
+                >
+                  Sports naked
+                </div>
+                <img
+                  src="{% static '/img/Honda CB650R.jpg'%}"
+                  class="card-img-top"
+                  alt="Joye E-Power"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Honda CB650R</h5>
+                  <p class="text-muted">Sports naked</p>
+                  <div class="features mb-3">
+                    <span class="badge bg-light text-dark me-1">20.4 Kmpl</span>
+                    <span class="badge bg-light text-dark me-1">649 cc</span>
+                    <span class="badge bg-light text-dark">95.17 PS</span>
+                  </div>
+                  <h6 class="mb-3">₹9.60 Lakh*</h6>
+                  <a href="#" class="btn btn-outline-primary w-100"
+                    >View Details</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Upcoming Bikes Section -->
+        <section class="upcoming-bikes mb-5">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Upcoming Joye Bikes</h2>
+            <a href="#" class="btn btn-outline-primary">View All</a>
+          </div>
+
+          <div class="row">
+            <!-- Upcoming Bike 1 -->
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      src="{% static '/img/CFMOTO 450MT.avif'%}"
+                      class="img-fluid rounded-start h-100"
+                      alt="CFMoto 450MT"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">CFMoto 450MT</h5>
+                      <p class="text-muted">Expected Launch: Sep, 2025</p>
+                      <p class="card-text">
+                        The all-new adventure touring bike with 450cc engine and
+                        off-road capabilities.
+                      </p>
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <span class="text-primary"
+                          >Expected Price: ₹4.50 Lakh</span
+                        >
+                        <button class="btn btn-sm btn-outline-secondary">
+                          Notify Me
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Upcoming Bike 2 -->
+            <div class="col-md-6 mb-4">
+              <div class="card">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img
+                      src="{% static '/img/Husqvarna vitpilen 401.avif'%}"
+                      class="img-fluid rounded-start h-100"
+                      alt="Husqvarna Vitpilen 401"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">Husqvarna Vitpilen 401</h5>
+                      <p class="text-muted">Expected Launch: Aug, 2025</p>
+                      <p class="card-text">
+                        The Vitpilen 401 is likely to look similar to the
+                        international-spec bike.
+                      </p>
+                      <div
+                        class="d-flex justify-content-between align-items-center"
+                      >
+                        <span class="text-primary"
+                          >Expected Price: ₹2.80 Lakh</span
+                        >
+                        <button class="btn btn-sm btn-outline-secondary">
+                          Notify Me
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- News Section -->
+        <section class="news-section mb-5">
+          <h2 class="mb-4">Latest Bike News</h2>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="{% static '/img/kawasaki-ninja-zx.avif'%}"
+                  class="card-img-top"
+                  alt="News 1"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Kawasaki Ninja ZX-10R</h5>
+                  <p class="card-text">
+                    The Kawasaki Ninja ZX-10R’s prices start from Rs 17,93,000
+                    (ex-showroom) in India. The Japanese supersport is available
+                    in a single variant and two colour schemes. Check out
+                    images, specs, and user reviews at Joye Bike.
+                  </p>
+                  <a href="#" class="btn btn-link ps-0">Read More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="{% static '/img/hayabusa.avif'%}"
+                  class="card-img-top"
+                  alt="News 2"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Suzuki Hayabusa</h5>
+                  <p class="card-text">
+                    A legendary bike like the Suzuki Hayabusa needs no
+                    introduction. The iconic superbike from the Japanese
+                    manufacturer sports an aggressive and bulky bodywork, making
+                    it look stunning and powerful.
+                  </p>
+                  <a href="#" class="btn btn-link ps-0">Read More</a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card">
+                <img
+                  src="{% static '/img/ninja-h2-sx.avif'%}"
+                  class="card-img-top"
+                  alt="News 3"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">Kawasaki Ninja H2 SX</h5>
+                  <p class="card-text">
+                    Powering the motorcycle is the Ninja H2's second-generation
+                    supercharged in-line four engine that generates 200PS of
+                    power at 11,000rpm. However, Kawasaki claims that the motor
+                    has been tuned to offer a smoother delivery with better low
+                    to mid-range tractability
+                  </p>
+                  <a href="#" class="btn btn-link ps-0">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 mb-4">
+            <h5>JoyBike</h5>
+            <p>
+              Your one-stop destination for all bike related information,
+              reviews, prices and more.
+            </p>
+            <div class="social-icons">
+              <a
+                href="https://www.linkedin.com/in/bhavesh-gupta-632117214/"
+                class="text-white me-2"
+              >
+                <i class="fab fa-linkedin-in"></i
+              ></a>
+              <a href="https://github.com/Bhavesh7268" class="text-white me-2"
+                ><i class="fab fa-github"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/bhavesh_6268_?igsh=YzBwbWpwZmkxejZ2&utm_source=qr"
+                class="text-white me-2"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="https://wa.me/918983243957"
+                target="_blank"
+                class="text-white"
+                title="WhatsApp"
+                ><i class="fab fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-md-3 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Home</a></li>
+              <li><a href="#" class="text-white">New Bikes</a></li>
+              <li><a href="#" class="text-white">Upcoming Bikes</a></li>
+              <li><a href="#" class="text-white">Electric Bikes</a></li>
+              <li><a href="#" class="text-white">Compare Bikes</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-4">
+            <h5>Popular Brands</h5>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Joye</a></li>
+              <li><a href="#" class="text-white">Honda</a></li>
+              <li><a href="#" class="text-white">Bajaj</a></li>
+              <li><a href="#" class="text-white">Yamaha</a></li>
+              <li><a href="#" class="text-white">Royal Enfield</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-4">
+            <h5>Contact Us</h5>
+            <address>
+              <p>
+                <i class="fas fa-map-marker-alt me-2"></i> 123 Bike Street,
+                Motor City
+              </p>
+              <p><i class="fas fa-phone me-2"></i> +91 8983243957</p>
+              <p><i class="fas fa-envelope me-2"></i> bhavesh72682@gmail.com</p>
+            </address>
+          </div>
+        </div>
+        <hr class="my-4" />
+        <div class="row">
+          <div class="col-md-6">
+            <p>&copy; 2023 JoyBike. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <a href="#" class="text-white me-3">Privacy Policy</a>
+            <a href="#" class="text-white me-3">Terms of Service</a>
+            <a href="#" class="text-white">Sitemap</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

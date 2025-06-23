@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-body text-center">
+                    {% if user.socialaccount_set.all.0.get_avatar_url %}
+                        <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" 
+                             class="rounded-circle mb-3" 
+                             width="150" 
+                             alt="Profile Picture">
+                    {% endif %}
+                    
+                    <h3>{{ user.email }}</h3>
+                    <p class="text-muted">
+                        Logged in via: 
+                        <span class="badge bg-primary">
+                            {{ user.socialaccount_set.all.0.provider|title }}
+                        </span>
+                    </p>
+                    
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-primary">Back to Home</a>
+                        <form method="post" action="{% url 'account_logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger ms-2">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

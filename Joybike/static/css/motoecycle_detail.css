@@ -1,0 +1,262 @@
+:root {
+    --honda-red: #e40521;
+    --honda-dark: #1a1a1a;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./013.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 150px 0;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.feature-section {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.spec-section {
+    background-color: #f8f9fa;
+    padding: 80px 0;
+}
+
+.btn-honda {
+    background-color: var(--honda-red);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px;
+    border: none;
+}
+
+.btn-honda-outline {
+    background-color: transparent;
+    color: var(--honda-red);
+    border: 2px solid var(--honda-red);
+    padding: 12px 30px;
+    border-radius: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+/* Image hover effect */
+.zoom-img-container {
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.zoom-img-container img {
+    transition: transform 0.3s ease;
+}
+
+.zoom-img-container:hover img {
+    transform: scale(1.05);
+}
+
+.header {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #000;
+}
+
+.price {
+    font-size: 16px;
+    color: #666;
+    margin: 5px 0 15px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #e40521;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.emi-section {
+    margin-top: 20px;
+}
+
+.emi-section h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #000;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.calculate-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #e40521;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.results {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.result-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.result-label {
+    font-weight: bold;
+}
+
+.result-value {
+    font-weight: bold;
+    color: #e40521;
+}
+
+.disclaimer {
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+    line-height: 1.5;
+}
+
+.custom-pills .nav-link {
+    color: #e40521;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    padding: 8px 20px;
+    font-weight: 500;
+}
+
+.custom-pills .nav-link:hover {
+    background-color: rgba(228, 5, 33, 0.1);
+    color: #e40521;
+}
+
+.custom-pills .nav-link.active {
+    background-color: #fff;
+    color: #e40521;
+    border: 2px solid #e40521;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+    background: #000;
+}
+
+.carousel-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+}
+
+.carousel-track img {
+    height: 250px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    border-radius: 10px;
+}
+
+.carousel-track img:hover {
+    transform: scale(1.05);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.image-popup img {
+    max-width: 90%;
+    max-height: 90%;
+    border: 4px solid white;
+    border-radius: 10px;
+}
+
+.image-popup::after {
+    content: '✖';
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+}
