@@ -1,0 +1,105 @@
+/* Add these styles to your static/css/auth.css */
+
+/* Container spacing */
+.auth-container {
+    padding: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Form element spacing */
+.auth-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Button spacing */
+.auth-btn {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Link spacing */
+.auth-link {
+    display: block;
+    margin: 1rem 0;
+}
+
+/* Remember me checkbox spacing */
+.remember-me {
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.remember-me input {
+    margin-right: 0.5rem;
+}
+
+/* Footer spacing */
+.footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    background-color: #f8f9fa;
+}
+
+.footer-section {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-container {
+        padding: 1.5rem;
+    }
+    
+    .footer-section {
+        margin-bottom: 1rem;
+    }
+}
+/* Password Reset Specific Styles */
+.password-reset-instructions {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    border-left: 4px solid #3498db;
+}
+
+.password-reset-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.password-reset-alert {
+    margin-bottom: 1.5rem;
+}
+
+/* Make sure these are in your auth.css */
+.auth-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.auth-form label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    padding: 0.75rem;
+}

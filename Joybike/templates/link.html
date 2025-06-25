@@ -1,107 +1,14 @@
 {% load static %}
-<!-- Bootstrap CSS -->
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-  crossorigin="anonymous"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-/>
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<!-- Favicon -->
+<link rel="shortcut icon" href="{% static 'img/pet-logo.png' %}" type="image/png">
 
 <!-- Bootstrap CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="shortcut icon" href="img/pet-logo.png" type="image/png" />
 
-<!-- My css -->
-<link rel="stylesheet" href="{% static 'css/stylesheet.css'%}" />
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<link rel="stylesheet" href="{% static '/css/footer.css'%}" />
-<style>
-    .login-popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1050;
-    }
-    
-    .popup-content {
-        background: white;
-        width: 90%;
-        max-width: 400px;
-        margin: 100px auto;
-        padding: 30px;
-        border-radius: 8px;
-        position: relative;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    
-    .close-btn {
-        position: absolute;
-        top: 15px;
-        right: 20px;
-        font-size: 24px;
-        cursor: pointer;
-        color: #666;
-    }
-    
-    .google-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #4285F4;
-        color: white;
-        padding: 12px;
-        border-radius: 4px;
-        margin: 20px 0;
-        text-decoration: none;
-        transition: all 0.3s;
-    }
-    
-    .google-btn:hover {
-        background: #357ae8;
-        transform: translateY(-1px);
-    }
-    
-    .divider {
-        margin: 20px 0;
-        text-align: center;
-        position: relative;
-    }
-    
-    .divider::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: #eee;
-        z-index: -1;
-    }
-    
-    .divider span {
-        background: white;
-        padding: 0 15px;
-    }
-    .dropdown-toggle::after {
-    vertical-align: middle;
-}
-
-.dropdown-menu {
-    min-width: 200px;
-}
-
-.dropdown-item:active {
-    background-color: #f8f9fa;
-    color: #000;
-}
-</style>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+<link rel="stylesheet" href="{% static 'css/stylesheet.css' %}">
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">

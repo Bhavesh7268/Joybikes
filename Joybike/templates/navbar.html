@@ -36,9 +36,9 @@
                     </ul>
                 </div>
                 {% else %}
-                <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <a class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" href="{% url 'account_signup' %}">
                     Login
-                </button>
+                </a>
                 <a href="{% url 'account_signup' %}" class="btn btn-primary">
                     Register
                 </a>
