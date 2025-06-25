@@ -36,9 +36,12 @@
                     </ul>
                 </div>
                 {% else %}
-                <a class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" href="{% url 'account_signup' %}">
+                {% comment %} <a class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal" href="{% url 'account_signup' %}">
                     Login
-                </a>
+                </a> {% endcomment %}
+                <a href="{% url 'account_login' %}" class="btn btn-outline-light me-2">
+              <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
                 <a href="{% url 'account_signup' %}" class="btn btn-primary">
                     Register
                 </a>
