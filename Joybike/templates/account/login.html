@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="auth-card card shadow">
                 <div class="card-body">
-                    <h2 class="card-title text-center mb-4">Sign In</h2>
+                    <h2 class="card-title text-center mb-4">Log In</h2>
                     
                     <form class="auth-form" method="POST" action="{% url 'account_login' %}">
                         {% csrf_token %}
@@ -29,25 +29,21 @@
                             <input type="password" name="password" id="id_password" class="form-control" required>
                             <a href="{% url 'account_reset_password' %}" class="d-block text-end mt-2">Forgot Password?</a>
                         </div>
-                        
-                        {% comment %} <div class="mb-3 form-check">
-                            <input type="checkbox" name="remember" id="id_remember" class="form-check-input">
-                            <label for="id_remember" class="form-check-label">Remember Me</label>
-                        </div> {% endcomment %}
-                        
-                        <button type="submit" class="btn btn-primary w-100">Sign In</button>
+              
+                        <button type="submit" class="btn btn-primary w-100">Log In</button>
                         
                         <div class="text-center mt-3">
-                            <p>Don't have an account? <a href="{% url 'account_signup' %}">Sign Up</a></p>
+                            <p>Don't have an account? <a href="{% url 'account_signup' %}">Register</a></p>
                         </div>
                         
                         {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
                         {% endif %}
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock %} 

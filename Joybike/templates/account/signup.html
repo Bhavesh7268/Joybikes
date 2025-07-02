@@ -46,13 +46,14 @@
                         <button type="submit" class="btn btn-primary w-100">Sign Up</button>
                         
                         <div class="text-center mt-3">
-                            <p>Already have an account? <a href="{% url 'account_login' %}">Sign In</a></p>
+                            <p>Already have an account? <a href="{% url 'account_login' %}">Log In</a></p>
                         </div>
                         
                         {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
                         {% endif %}
                     </form>
+                    <!-- dealer_register.html -->
                 </div>
             </div>
         </div>

@@ -80,16 +80,25 @@
                 class="btn btn-outline-light dropdown-toggle"
                 type="button"
                 id="userDropdown"
-                data-bs-toggle="dropdown"
-              >
-                {% if user.socialaccount_set.all.0.get_avatar_url %}
+                data-bs-toggle="dropdown">
+                {% comment %} {% if user.socialaccount_set.all.0.get_avatar_url %}
                 <img
                   src="{{ user.socialaccount_set.all.0.get_avatar_url }}"
                   width="30"
                   height="30"
                   class="rounded-circle me-2"
-                />
-                {% endif %} {{ user.email|truncatechars:15 }}
+                /> {% endcomment %}
+                {% with account=user.socialaccount_set.all|first %}
+                {% if account and account.get_avatar_url %}
+                  <img
+                    src="{{ account.get_avatar_url }}"
+                    width="30"
+                    height="30"
+                    class="rounded-circle me-2"
+                  />
+                  {% endif %}
+               {% endwith %}
+               {{ user.email|truncatechars:15 }}
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
@@ -209,7 +218,7 @@
                     <span class="badge bg-light text-dark">95.17 PS</span>
                   </div>
                   <h6 class="mb-3">₹10.40 Lakh*</h6>
-                  <a href="#" class="btn btn-outline-primary w-100"
+                  <a href="{% url "bike_detail" 1 %}" class="btn btn-outline-primary w-100"
                     >View Details</a
                   >
                 </div>
@@ -233,7 +242,7 @@
                     <span class="badge bg-light text-dark">40 PS</span>
                   </div>
                   <h6 class="mb-3">₹2.94 Lakh*</h6>
-                  <a href="#" class="btn btn-outline-primary w-100"
+                  <a href="{% url "bike_detail" 4 %}" class="btn btn-outline-primary w-100"
                     >View Details</a
                   >
                 </div>
